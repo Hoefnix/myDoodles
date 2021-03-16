@@ -649,7 +649,7 @@ class camera(object):
 			draw = ImageDraw.Draw(self.foto, 'RGBA')
 			locale.setlocale(locale.LC_ALL, "nl_NL.UTF-8")
 
-			tekst = "Op %s gebeurt er wat. (%s)"%(time.strftime("%A %d %B om %H:%M").lower(),self.lichtsterkte)
+			tekst = "Op %s gebeurt er wat. (%s)"%(time.strftime("%A %d %B om %H:%M.%S").lower(),self.lichtsterkte)
 			color = "green" if kattenluik.capacty > 50 else "orange" if kattenluik.capacty > 25 else "red"
 			wrtxt = weer()
 			x,y = draw.textsize(wrtxt, font=self.font)
@@ -836,7 +836,7 @@ class geluid(object):
 		global kattenluik
 
 		self.getframe()
-		self.fotos    = [(self.foto,datetime.today())] * 10
+		self.fotos    = [(self.foto,datetime.today())] * 20
 		self.font = ImageFont.truetype(font="/opt/development/arial.ttf", size=16)
 		self.whereabouts = {}
 
@@ -933,7 +933,7 @@ class geluid(object):
 
 	def sendfoto(self, fotomoment, name):
 		draw = ImageDraw.Draw(fotomoment[0], 'RGBA')
-		tijd = fotomoment[1].strftime("%A %d %B om %H:%M").lower()
+		tijd = fotomoment[1].strftime("%A %d %B om %H:%M.%S").lower()
 		tekst = "Op %s kwam %s naar %s."%(tijd, name, ("binnen" if self.whereabouts[name]["where"]==1 else "buiten") )
 		tekst = tekst if self.whereabouts[name]["where"]==1 else tekst.replace("kwam","ging")
 		color = "green" if kattenluik.capacty > 50 else "orange" if kattenluik.capacty > 25 else "red"
